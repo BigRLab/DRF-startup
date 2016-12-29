@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'djcelery',
-    'api'
+    'api',
+    'rest_framework_swagger',
 )
 
 REST_FRAMEWORK = {
@@ -52,7 +53,8 @@ REST_FRAMEWORK = {
                                 'rest_framework.filters.OrderingFilter'),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 MIDDLEWARE_CLASSES = (
@@ -106,7 +108,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh-CN'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
@@ -131,3 +133,5 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'static')
 STATIC_URL = '/static/'
+
+ROOT_URLCONF = 'project.urls'
