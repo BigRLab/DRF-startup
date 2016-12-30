@@ -7,10 +7,11 @@ from rest_framework.exceptions import ValidationError
 User = get_user_model()
 
 
-class UserListSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('id',
+        fields = ('url',
+                  'thumbnail',
                   'telephone',
                   'is_admin',
                   'is_active')
@@ -41,6 +42,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id',
+                  'thumbnail',
                   'is_admin',
                   'is_active')
 

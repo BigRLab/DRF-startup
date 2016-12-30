@@ -5,9 +5,6 @@ from django.db import models
 
 
 class CoreModel(models.Model):
-    """
-    基模型
-    """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -18,10 +15,6 @@ class CoreModel(models.Model):
 
 
 class UserManager(BaseUserManager):
-    """
-    用户管理器
-    """
-
     def create_user(self, telephone, password):
         if telephone is None:
             raise ValueError('必须输入电话')
@@ -48,6 +41,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, CoreModel):
     """
     telephone = models.CharField(max_length=11, verbose_name='手机号码', unique=True)
     fullname = models.CharField(max_length=80, blank=True, verbose_name='名称')
+    thumbnail = models.ImageField(upload_to="thumbnail", verbose_name='头像',null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -65,7 +59,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, CoreModel):
         return True
 
     def has_module_perms(self, app_label):
-
         if self.is_admin:
             return True
         else:
