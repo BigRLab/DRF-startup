@@ -23,6 +23,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('telephone',
+                  'is_admin',
                   'password')
 
 
@@ -30,7 +31,6 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id',
-                  'password',
                   'is_admin',
                   'is_active')
 
@@ -39,6 +39,7 @@ class UserPartialUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id',
+                  'password',
                   'is_staff',
                   'is_admin',
                   'is_active')

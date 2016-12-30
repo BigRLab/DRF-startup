@@ -1,32 +1,37 @@
-from django.contrib.auth import get_user_model
+from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework.viewsets import GenericViewSet
 
 from api.filters import UserFilter
-from api.permissions import IsSelf
-from api.serializers import (UserListSerializer,
-                             UserRetrieveSerializer,
-                             UserCreateSerializer,
-                             UserUpdateSerializer,
-                             UserPartialUpdateSerializer)
+from api.serializers import *
 
 User = get_user_model()
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    filter_class = UserFilter
-    permission_classes = (IsSelf,)
-    search_fields = ('fullname',)
+class BaseModelViewSet(viewsets.ModelViewSet):
+    def __init__(self, **kwargs):
+        GenericViewSet.__init__(self, **kwargs)
+        self.name = self.__class__.__name__.replace('ViewSet', '')
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return UserListSerializer
+            return eval("{}ListSerializer".format(self.name))
         if self.action == 'retrieve':
-            return UserRetrieveSerializer
+            return eval("{}RetrieveSerializer".format(self.name))
         if self.action == 'create':
-            return UserCreateSerializer
+            return eval("{}CreateSerializer".format(self.name))
         if self.action == 'update':
-            return UserUpdateSerializer
+            return eval("{}UpdateSerializer".format(self.name))
         if self.action == 'partial_update':
-            return UserPartialUpdateSerializer
-        return UserListSerializer
+            return eval("{}PartialUpdateSerializer".format(self.name))
+        return eval("{}ListSerializer".format(self.name))
+
+    class Meta:
+        abstract = True
+
+
+class UserViewSet(BaseModelViewSet):
+    queryset = User.objects.all()
+    filter_class = UserFilter
+    # permission_classes = (IsSelf,)
+    search_fields = ('fullname',)
