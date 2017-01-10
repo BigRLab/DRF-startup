@@ -25,7 +25,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
 api_v1_urlpatterns = [
-    url(r'^api/(?P<version>(v1))/', include(router.urls)),
+    url(r'^', include(router.urls)),
 ]
 
 urlpatterns = api_v1_urlpatterns + [
