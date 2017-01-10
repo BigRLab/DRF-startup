@@ -16,5 +16,5 @@ script: python manage.py test
 
 services:
   - mysql
-efore_install:
+before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
