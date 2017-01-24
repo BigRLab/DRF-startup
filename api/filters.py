@@ -7,4 +7,4 @@ User = get_user_model()
 class UserFilter(FilterSet):
     class Meta:
         model = User
-        fields = ('is_admin',)
+        fields = ('is_admin','is_active')

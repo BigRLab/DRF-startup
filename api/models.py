@@ -41,7 +41,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, CoreModel):
     """
     telephone = models.CharField(max_length=11, verbose_name='手机号码', unique=True)
     fullname = models.CharField(max_length=80, blank=True, verbose_name='名称')
-    thumbnail = models.ImageField(upload_to="thumbnail", verbose_name='头像',null=True)
+    thumbnail = models.ImageField(upload_to="thumbnail", verbose_name='头像', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -56,7 +56,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, CoreModel):
         return self.fullname
 
     def has_perm(self, perm, obj=None):
-        return True
+        return self.is_admin or perm in self.get_all_permissions()
 
     def has_module_perms(self, app_label):
         if self.is_admin:
@@ -75,3 +75,9 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.telephone
+
+    class Meta:
+        permissions = (
+            ("view_user", "Can drive"),
+        )
+        # def Mat
