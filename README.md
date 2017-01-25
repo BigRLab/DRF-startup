@@ -2,9 +2,5 @@
 django rest framework 脚手架，用于快速开始一个restful项目
 ![](https://api.travis-ci.org/gaojiuli/DRF-startup.svg?branch=master)
 # 特征
-- 一个基本的自定义用户
-- 一个自定义认证
-- 一个权限
-- 一个过滤器
-- 一个celery任务
-- 一套CRUD模板
+
+- 一个基本restful所需要各种元素
